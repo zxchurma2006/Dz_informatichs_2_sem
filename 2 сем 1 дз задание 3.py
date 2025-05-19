@@ -11,7 +11,7 @@ for i in range(M):
     else:
         G[v1] = {v2: w}
 
-    # Преобразуем курсы в отрицательные логарифмы
+    #преобразуем курсы в отрицательные логарифмы
     log_g = {u: {v: -math.log(w) for v, w in vs.items()} for u, vs in g.items()}
 
 def arbitrage(g):
@@ -23,7 +23,7 @@ def arbitrage(g):
                 for v in g[u]:
                     if dist[v] > dist[u] + g[u][v]:
                         dist[v] = dist[u] + g[u][v]
-        # нужно проверить на отрицательные циклы т к тогда сумма логарифмов весов ребер будет отрицательна а следовательно это нужный нам случай
+        #нужно проверить на отрицательные циклы т к тогда сумма логарифмов весов ребер будет отрицательна а следовательно это нужный нам случай
         for u, neighbors in g.items():
             for v, weight in neighbors.items():
                 if dist[v] > dist[u] + weight:
@@ -31,7 +31,7 @@ def arbitrage(g):
                 else:
                     return False
 
-    # Проверяем каждую валюту как стартовую
+    #проверяем каждую валюту как стартовую
     for curr in log_g:
         if bellman_ford(log_g, curr):
             return True
